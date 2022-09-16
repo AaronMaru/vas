@@ -1,0 +1,74 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"> <a [routerLink]="['/item/detail',itemId]">Stock View</a> > {{category}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <!-- <a [routerLink]="['./new']" class="btn btn-primary float-right">New</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <!-- <button (click)="exportexcel()" class="btn btn-success">
+                Export
+            </button> -->
+
+            <!-- <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input (input)="search()" type="text" name="table_search" class="form-control float-right" placeholder="Search"
+                        [(ngModel)]="term">
+
+                    <div class="input-group-append">
+                        <button (click)="search()" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name/Remittance</th>
+                        <th>Category</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Phone Number</th>
+                        <th>Win Date</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="itemDetails.length > 0">
+                    <tr *ngFor="let itemDetail of itemDetails | paginate: { itemsPerPage: 10, currentPage: page }">
+                        <td>{{itemDetail.id}}</td>
+                        <td>{{itemDetail.name}}</td>
+                        <td>{{itemDetail.category}}</td>
+                        <td>{{itemDetail.currency}}</td>
+                        <td>{{itemDetail.status}}</td>
+                        <td>
+                            {{itemDetail.phoneNumber}}
+                        </td>
+                        <td>
+                            {{itemDetail.winDate | date}}
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="itemDetails.length == 0">
+                    <tr>
+                        <td colspan="6" class="align-middle">No result...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <pagination-controls (pageChange)="page = $event" class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

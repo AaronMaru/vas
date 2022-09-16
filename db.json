@@ -1,0 +1,270 @@
+{
+	"items": [
+		{
+			"id": 1,
+			"name": "Reward 500,000 Riels",
+			"description": "Lorem ipsum maru",
+			"remark": "Biggest cash back",
+			"transaction_id": {
+				"id": 2,
+				"name": "Gift",
+				"type": "Gift"
+			},
+			"status": "Inactive"
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "Reward 100,000 Riels",
+			"description": "Reward 100,000 Riels",
+			"remark": "Reward 100,000 Riels",
+			"id": 2
+		},
+		{
+			"status": "Clearance",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "ថសដដដ",
+			"description": "ថសដដដ",
+			"remark": "ថសដដដ",
+			"id": 3
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "abc",
+			"description": "abc",
+			"remark": "abc",
+			"id": 4
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": "2",
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "ggg",
+			"description": "ggg",
+			"remark": "ggg",
+			"id": 5
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "ddd",
+			"description": "ddd",
+			"remark": "ddd",
+			"id": 6
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "test",
+			"description": "test",
+			"remark": "test",
+			"id": 7
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "testing",
+			"description": "testing",
+			"remark": "testing",
+			"id": 8
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "ddd",
+			"description": "ddd",
+			"remark": "ddd",
+			"id": 9
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "ghehehehe",
+			"description": "heheheh",
+			"remark": "hehehe",
+			"id": 10
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "rrr",
+			"description": "rrr",
+			"remark": "rrr",
+			"id": 11
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "jjj",
+			"description": "jjj",
+			"remark": "jjj",
+			"id": 12
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"description": "llll",
+			"name": "lllll",
+			"remark": "llll",
+			"id": 13
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "momo",
+			"description": "momo",
+			"remark": "momo",
+			"id": 14
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "dingding",
+			"description": "dingding",
+			"remark": "dingding",
+			"id": 15
+		},
+		{
+			"status": "Active",
+			"transaction_id": {
+				"id": 1,
+				"name": "cash",
+				"type": "cash"
+			},
+			"name": "hello worl",
+			"description": "jhello world",
+			"remark": "helo world",
+			"id": 16
+		}
+	],
+	"transactions": [
+		{
+			"id": 1,
+			"name": "Cash",
+			"type": "Cash"
+		},
+		{
+			"id": 2,
+			"name": "Gift",
+			"type": "Gift"
+		}
+	],
+	"stocks": [
+		{
+			"id": 1,
+			"item_id": {
+				"status": "Active",
+				"transaction_id": {
+					"id": 1,
+					"name": "cash",
+					"type": "cash"
+				},
+				"name": "Reward 100,000 Riels",
+				"description": "Reward 100,000 Riels",
+				"remark": "Reward 100,000 Riels",
+				"id": 2
+			},
+			"total": 50,
+			"used": 30,
+			"balance": 20,
+			"remark": "KHR"
+		},
+		{
+			"id": 2,
+			"item_id": {
+				"status": "Active",
+				"transaction_id": {
+					"id": 1,
+					"name": "cash",
+					"type": "cash"
+				},
+				"name": "ថសដដដ",
+				"description": "ថសដដដ",
+				"remark": "ថសដដដ",
+				"id": 3
+			},
+			"total": 100,
+			"used": 20,
+			"balance": 80,
+			"remark": "For Monthly"
+		}
+	],
+	"stock_details": [
+		{
+			"id": 1,
+			"stock_id": 1,
+			"remittance_code": "xxxx1234",
+			"transaction_ref": "FW:xxxx1234",
+			"amount": "100,000",
+			"currency": "KHR",
+			"status": "Used",
+			"upload_date": "20/12/2021"
+		},
+		{
+			"id": 2,
+			"stock_id": 2,
+			"remittance_code": "xxxx4321",
+			"transaction_ref": "FW:xxxx4321",
+			"amount": "400.00",
+			"currency": "KHR",
+			"status": "Available",
+			"upload_date": "20/12/2021"
+		}
+	]
+}

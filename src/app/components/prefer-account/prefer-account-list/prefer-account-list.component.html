@@ -1,0 +1,78 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{routeTitle}}</h1>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="amk-margin-right">
+                            <input type="file" id="exampleInputFile" (change)="onFileChange($event)" multiple="false">
+                            <label class="btn btn-success" for="exampleInputFile">Upload</label>
+                        </div>
+                        <button (click)="downLoadTemplate()" class="btn btn-success amk-margin-right">
+                            Download Template
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row float-right">
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input (input)="search()" type="text" name="table_search"
+                                    class="form-control float-right" placeholder="Search" [(ngModel)]="term">
+
+                                <div class="input-group-append">
+                                    <button (click)="search()" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Account ID</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="perfers.length > 0">
+                    <tr *ngFor="let perfer of perfers | paginate: { itemsPerPage: 10, currentPage: page };
+                        let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{perfer.accountId}}</td>
+                        <td>{{perfer.remark}}</td>
+                        <td><a [routerLink]="" (click)="deletePreferList(perfer.id)"><i
+                                    class="d-inline fas fa-trash nav-link"></i></a></td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="perfers.length == 0">
+                    <tr>
+                        <td colspan="6" class="align-middle">No result...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <pagination-controls (pageChange)="page = $event" class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

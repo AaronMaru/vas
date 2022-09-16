@@ -1,0 +1,91 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-4">
+                    <h1 class="m-0 text-dark"> Report Stock</h1>
+                </div>
+                <div class="col-sm-8">
+                    <form (ngSubmit)="advanceSearch()" [formGroup]="campaignForm">
+                        <div class="form-group col-md-12 form-row">
+                            <div class="col-md-4">
+                                <div class="input-group-sm">
+
+                                    <label>Item</label>
+                                    <select class="form-control" name="item" id="item" formControlName="item">
+                                        <option *ngFor="let item of items" [value]="item.id">{{item.name}}</option>
+                                    </select>
+                                    <span class="text-danger"
+                                        *ngIf="(campaignFormControl.item.touched || submitted) && campaignFormControl.item.errors?.required">
+                                        Item type is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group-sm">
+
+                                    <label>Status</label>
+                                    <select class="form-control" name="currency" id="currency" formControlName="status">
+                                        <option value="">ALL</option>
+                                        <option value="AVAILABLE">Available</option>
+                                        <option value="USED">Used</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-tools mt-10">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <button type="submit" class="btn btn-info btn-sm">Search</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <button (click)="exportexcel()" class="btn btn-success btn-sm">
+                Export
+            </button>
+
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name/Remittance</th>
+                        <th>Category</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Phone Number</th>
+                        <th>Win Date</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="itemDetails.length > 0">
+                    <tr *ngFor="let itemDetail of itemDetails">
+                        <td>{{itemDetail.id}}</td>
+                        <td>{{itemDetail.name}}</td>
+                        <td>{{itemDetail.category}}</td>
+                        <td>{{itemDetail.currency}}</td>
+                        <td>{{itemDetail.status}}</td>
+                        <td>{{itemDetail.phoneNumber}}</td>
+                        <td>{{itemDetail.winDate | date}}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="itemDetails.length == 0">
+                    <tr>
+                        <td colspan="6" class="align-middle">No result...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <!-- <div class="card-footer clearfix">
+            <pagination-controls (pageChange)="page = $event" class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div> -->
+    </div>
+</div>

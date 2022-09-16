@@ -1,0 +1,179 @@
+<div class="modal fade" id="modal-secondary">
+    <div class="modal-dialog">
+        <div class="modal-content bg-secondary">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Current Pool:
+                    <span class="badge bg-navy">
+                        {{ currentPool }}
+                    </span>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>
+                    Pool History
+                </h5>
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Remain Reward</th>
+                            <th>Remain</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="histories.length > 0">
+                        <tr
+                            *ngFor="let history of histories  | paginate: { id: 'historyPagi', itemsPerPage: 10, currentPage: poolPage }">
+                            <td>{{history.createdAt | date}}</td>
+                            <td>{{history.remainGift}}</td>
+                            <td>{{history.remain}}</td>
+                            <td>{{history.total}}</td>
+                        </tr>
+
+                    </tbody>
+                    <tbody *ngIf="histories.length == 0">
+                        <tr>
+                            <td colspan="6" class="align-middle">No history yet...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                <pagination-controls id="historyPagi" (pageChange)="poolPage = $event"
+                    class="pagination pagination-sm m-0 float-right">
+                </pagination-controls>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{routeTitle}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <a [routerLink]="['./new']" class="btn btn-primary float-right">New</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <!-- <button type="submit" class="btn btn-success">
+                Export
+            </button> -->
+
+            <form (ngSubmit)="advanceSearch()" [formGroup]="campaignForm">
+                <div class="form-group col-md-12 form-row">
+                    <div class="col">
+                        <div class="input-group-sm">
+                            <label>Start Date</label>
+                            <input type='date' class="form-control" formControlName="startDate" name="startDate"
+                                id="startDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="(campaignFormControl.startDate.touched || submitted) && campaignFormControl.startDate.errors?.required">
+                                Start Date is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group-sm">
+                            <label>End Date</label>
+                            <input type='date' class="form-control" name="endDate" formControlName="endDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="(campaignFormControl.endDate.touched || submitted) && campaignFormControl.endDate.errors?.required">
+                                End Date is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card-tools mt-10">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search" formControlName="name">
+
+                                <div class="input-group-append">
+                                    <button (click)="advanceSearch()" type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Reward Name</th>
+                        <th>Estimate Customer</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Remark</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let campaign of campaigns  | paginate: { id: 'campaignPagi', itemsPerPage: 10, currentPage: page }">
+                        <td>{{campaign.id}}</td>
+                        <td><a data-toggle="modal" data-target="#modal-secondary" [routerLink]=""
+                                (click)="poolHostory(campaign.id)">{{campaign.name}}</a></td>
+                        <td>{{campaign.item.name}}</td>
+                        <td>
+                            <span class="badge bg-lime">{{campaign.estimateCustomer}}</span>
+                        </td>
+                        <td>{{campaign.startDate | date}}</td>
+                        <td>{{campaign.endDate | date}}</td>
+                        <td>{{campaign.remark}}</td>
+                        <td>
+                            <span *ngIf="campaign.status === 'A'" class="badge bg-lime">{{campaign.status |
+                                translate}}</span>
+                            <span *ngIf="campaign.status === 'I'" class="badge bg-danger">{{campaign.status |
+                                translate}}</span>
+                        </td>
+                        <td>
+                            <div class="form-group  form-row">
+                                <a [routerLink]="['./', campaign.id]"><i class="d-inline fas fa-edit nav-link"></i></a>
+                                <!-- <div
+                                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="campaign.status"
+                                        [(ngModel)]="status">
+                                    <label class="custom-control-label" for="campaign.status"></label>
+                                </div> -->
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer clearfix">
+            <pagination-controls id="campaignPagi" (pageChange)="page = $event"
+                class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

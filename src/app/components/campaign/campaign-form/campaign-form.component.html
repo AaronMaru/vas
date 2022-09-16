@@ -1,0 +1,202 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{routeTitle}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-primary">
+        <form (ngSubmit)="submit()" [formGroup]="campaignForm">
+            <div class="card-body">
+                <input type="hidden" name="id" class="form-control" id="id" formControlName="id" />
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="name" class="form-control" id="name" formControlName="name" />
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.name.touched || submitted) && campaignFormControl.name.errors?.required">
+                            Name is required
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Item</label>
+                        <select class="form-control" name="item" id="item" formControlName="item">
+                            <option *ngFor="let item of items" [value]="item.id">{{item.name}}</option>
+                        </select>
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.item.touched || submitted) && campaignFormControl.item.errors?.required">
+                            Item type is required
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Channel</label>
+                        <select class="form-control" name="channel" id="channel" formControlName="channel">
+                            <option value="AGENT">Agent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Estimate Customer</label>
+                        <input type="number" name="estimateCustomer" class="form-control" id="estimateCustomer"
+                            formControlName="estimateCustomer" />
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.estimateCustomer.touched || submitted) && campaignFormControl.estimateCustomer.errors?.required">
+                            Estimate Customer is required
+                        </span>
+                    </div>
+
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Transaction Type</label>
+
+                    <angular2-multiselect class="form-control no-padding myclass" [data]="transactionTypeList"
+                        formControlName="transactionTypes" [settings]="transactionTypeSettings"
+                        (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                        [ngModelOptions]="{standalone: true}">
+                    </angular2-multiselect>
+                    <span class="text-danger"
+                        *ngIf="(campaignFormControl.transactionTypes.touched || submitted) && campaignFormControl.transactionTypes.errors?.required">
+                        Transaction type is required
+                    </span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Base on</label>
+                    <select class="form-control" name="baseOn" id="baseOn" formControlName="baseOn"
+                        (change)="onChange($event.target.value)">
+                        <option value="BRANCH">Branch</option>
+                        <option value="AGENT">Agent</option>
+                    </select>
+                    <div class="mt-10">
+                        <div *ngIf="campaignFormControl.baseOn.value === 'BRANCH'" class="form-group">
+                            <angular2-multiselect class="form-control no-padding" [data]="branchList"
+                                formControlName="branches" [settings]=" branchSettings"
+                                (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                                (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                [ngModelOptions]="{standalone: true}">
+                            </angular2-multiselect>
+                        </div>
+
+                        <div *ngIf="campaignFormControl.baseOn.value === 'AGENT'" class="form-group">
+                            <div>
+                                <input type="file" id="exampleInputFile" (change)="onFileChange($event)"
+                                    multiple="false">
+                                <label class="btn btn-success btn-sm agent" for="exampleInputFile">Upload</label>
+                                <button type="button" (click)="downLoadTemplate()"
+                                    class="btn btn-success btn-sm amk-margin-right">
+                                    Download Template
+                                </button>
+                                <button *ngIf="campaignId" type="button" (click)="downLoadExistingTemplate()"
+                                    class="btn btn-success btn-sm amk-margin-right">
+                                    Download Existing Template
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Start Date</label>
+                        <input type='date' class="form-control" formControlName="startDate" name="startDate"
+                            id="startDate" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.startDate.touched || submitted) && campaignFormControl.startDate.errors?.required">
+                            Start Date is required
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>End Date</label>
+                        <input type='date' class="form-control" name="endDate" formControlName="endDate" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.endDate.touched || submitted) && campaignFormControl.endDate.errors?.required">
+                            End Date is required
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Start Time</label>
+                        <input type='time' class="form-control" name="endDate" formControlName="startTime" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.endDate.touched || submitted) && campaignFormControl.endDate.errors?.required">
+                            Start time is required
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>End Time</label>
+                        <input type='time' class="form-control" name="endDate" formControlName="endTime" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.endDate.touched || submitted) && campaignFormControl.endDate.errors?.required">
+                            Start time is required
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>From Amount(KHR)</label>
+                        <input type="text" name="fromAmount" class="form-control" id="fromAmount"
+                            formControlName="fromAmount" />
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.fromAmount.touched || submitted) && campaignFormControl.fromAmount.errors?.required">
+                            From Amount is required
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>To Amount(KHR)</label>
+                        <input type="text" name="toAmount" class="form-control" id="toAmount"
+                            formControlName="toAmount" />
+                        <span class="text-danger"
+                            *ngIf="(campaignFormControl.toAmount.touched || submitted) && campaignFormControl.toAmount.errors?.required">
+                            To Amount is required
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Remark</label>
+                        <textarea class="form-control" rows="3" name="remark" id="remark"
+                            formControlName="remark"></textarea>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Status</label>
+                        <select class="form-control" name="sequence" id="sequence" formControlName="status">
+                            <option value="A">Active</option>
+                            <option value="I">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-md-6">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="forAmk">
+                        <label class="form-check-label" for="exampleCheck1"><em>For AMK</em></label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <!-- [disabled]="!campaignForm.valid" -->
+                <button type="submit" class="btn btn-info">Submit</button>
+                <a [routerLink]="['/campaign']" class="btn btn-default float-right">Cancel</a>
+            </div>
+        </form>
+        <!-- {{campaignForm.value|json}} -->
+    </div>
+</div>

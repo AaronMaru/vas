@@ -1,0 +1,82 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{item.name}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <!-- <a [routerLink]="['./new']" class="btn btn-primary float-right">New</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="amk-margin-right">
+                            <input type="file" id="exampleInputFile" (change)="onFileChange($event)" multiple="false">
+                            <label class="btn btn-success" for="exampleInputFile">Upload</label>
+                        </div>
+                        <button (click)="downLoadTemplate()" class="btn btn-success amk-margin-right">
+                            Download Template
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="row float-right">
+                        <button type="submit" class="btn btn-success amk-margin-right">
+                            Export
+                        </button>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Category</th>
+                        <th>Total</th>
+                        <th>Used</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="stocks.length > 0">
+                    <tr *ngFor="let stock of stocks | paginate: { itemsPerPage: 10, currentPage: page };
+                        let i = index">
+                        <td>{{i + 1}}</td>
+                        <td><a [routerLink]="['./', stock.category]">{{stock.category}}</a></td>
+                        <td>{{stock.total}}</td>
+                        <td>{{stock.used}}</td>
+                        <td>{{stock.total - stock.used}}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="stocks.length == 0">
+                    <tr>
+                        <td colspan="6" class="align-middle">No result...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <pagination-controls (pageChange)="page = $event" class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

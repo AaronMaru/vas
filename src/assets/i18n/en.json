@@ -1,0 +1,16 @@
+{
+  "cash": "Cash",
+  "gift": "Gift",
+  "M": "Monthly",
+  "W": "Weekly",
+  "A": "Active",
+  "I": "Inactive",
+  "C": "Clearance",
+  "CT": "Cash Transfer",
+  "U": "Used",
+  "AV": "Available",
+
+  "redeem": "Redeem",
+  "pending": "Pending",
+  "re-use": "Re Use"
+}

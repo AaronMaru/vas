@@ -1,0 +1,150 @@
+<ngx-spinner></ngx-spinner>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1 class="m-0 text-dark">{{routeTitle}}</h1>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <form (ngSubmit)="submit()" [formGroup]="winnerForm">
+                        <div class="form-group row">
+
+                            <div class="col-md-2">
+                                <div class="input-group-sm">
+                                    <label>From Date</label>
+                                    <input type='date' class="form-control" formControlName="fromDate" name="fromDate"
+                                        id="fromDate" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="(winnerFormControl.fromDate.touched || submitted) && winnerFormControl.fromDate.errors?.required">
+                                        From Date is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group-sm">
+                                    <label>To Date</label>
+                                    <input type='date' class="form-control" name="toDate" formControlName="toDate" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="(winnerFormControl.toDate.touched || submitted) && winnerFormControl.toDate.errors?.required">
+                                        To Date is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group-sm">
+                                    <label>Branch</label>
+                                    <angular2-multiselect class="form-control no-padding" [data]="branchList"
+                                        formControlName="branches" [settings]=" branchSettings"
+                                        (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                                        (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                        [ngModelOptions]="{standalone: true}">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group-sm">
+
+                                    <label>Type</label>
+                                    <select class="form-control" name="currency" id="currency" formControlName="type">
+                                        <option value="cash">Cash</option>
+                                        <option value="gift">Gift</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="card-tools mt-10">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right"
+                                            placeholder="Search" formControlName="term">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <button (click)="exportexcel()" class="btn btn-success">
+                Export
+            </button>
+
+
+
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Campaign</th>
+                        <th>Customer ID</th>
+                        <th>Reward Name</th>
+                        <th>Branch</th>
+                        <th>Txn Type</th>
+                        <th>Type</th>
+                        <th>Win Date</th>
+                        <th>Agent ID</th>
+                        <th>Txn Ref</th>
+                        <th>Remittance Status</th>
+                        <th>Redeemed Date</th>
+                        <th>Reward Remittance</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="winners.length > 0">
+                    <tr *ngFor="let winner of winners | paginate: { itemsPerPage: 1000000, currentPage: page } let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{winner.campaignName}}</td>
+                        <td>{{winner.customerId}}</td>
+                        <td>{{winner.category}} <span *ngIf="winner.type === 'cash'"
+                                class="badge bg-olive"> {{winner.currency}}</span></td>
+                        <td>{{winner.branchName}}</td>
+                        <td>{{winner.transactionType | translate}}</td>
+                        <td>{{winner.type | translate}}</td>
+                        <td>{{winner.winDate | date:'dd/MM/yyyy hh:mm a'}}</td>
+                        <td>{{winner.agentId}}</td>
+                        <td>{{winner.transactionRef}}</td>
+                        <td>
+                            <span *ngIf="winner.status === 'redeem'" class="badge bg-lime">{{winner.status |
+                                translate}}</span>
+                            <span *ngIf="winner.status === 'pending'" class="badge bg-navy">{{winner.status |
+                                translate}}</span>
+                            <span *ngIf="winner.status === 're-use'" class="badge bg-warning">{{winner.status |
+                                translate}}</span>
+                        </td>
+                        <td>{{winner.redeemDate | date:'dd/MM/yyyy hh:mm a'}}</td>
+                        <td>{{winner.rewardRemittance}}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="winners.length == 0">
+                    <tr>
+                        <td colspan="6" class="align-middle">No result...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <pagination-controls (pageChange)="page = $event" class="pagination pagination-sm m-0 float-right">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
